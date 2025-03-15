@@ -8,6 +8,7 @@ A **real-time computer vision tracking system** using an iPhone and Apple's Visi
 - ✅ **Fast TCP Communication** – Uses IBM BlueSocket API for raw TCP socket JSON data transmission, implementing platform in environments with or without WiFi.  
 - ✅ **Precise Angle & Distance Calculation** – Computes target angle relative to the robot's camera.
 
+
 ## Example
 Here is a snapshot and demo of the project in action. It successfully identifies the target, and reports on-screen the angle offset, aspect ratio, and location in frame of the detected target. This information is passed onto the external device through the TCP server. Notice in the demo that other shapes, such as the ceiling lights, may pass through the color filter, but are not recognized by the vision model. The video feed is in black and white, where white represents what passes the color filter, and black is everything else.
 
@@ -17,6 +18,7 @@ Here is a snapshot and demo of the project in action. It successfully identifies
     <td><img src="demo.gif" alt="Right Image" width="60%"></td>
   </tr>
 </table>
+
 
 ## Technologies & Skills
 - **Swift** User interface, integration of APIs 
@@ -54,9 +56,8 @@ Apple's built-in Vision framework (iOS 11.0+) provides rectangle detection and t
 
 There are three filters in this project. The first is a  color filter, using a `CIColorKernel`. A minimum and maximum RGB value is specified, and CoreImage filters the image as black and white. The second filter will be an aspect ratio. The third filter will look at the negative space between the two detected rectangles to ensure they are not tiny points.
 
-### 📷 Vision Processing (`Rectangle.swift`)
 
----
+## 📷 Vision Processing (`Rectangle.swift`)
 
 - **Step 1:** Applies color filter (`CIColorKernel`) to isolate green light from the image field.  
 - **Step 2:** Uses [`VNRectangleDetectionRequest`](https://developer.apple.com/documentation/vision/vndetectrectanglesrequest) to find up to 6 potential targets.  
@@ -70,9 +71,7 @@ The current vision targets for the consist of two rectangles slanted in towards 
 
 Once these two rectangles are found, they are tracked *independently* with two separate trackers. However, the `groupResults(target1:, target2:)` calculates the degrees from the center and distance based on area % regression.
 
-### ✴️ Data Structure
-
----
+## ✴️ Data Structure
 
 The file `VisionData.swift` contains the data structure for both parsing the observations from Vision and sending the observations over BlueSocket. It can be sent either as a JSON, conforming to the `Codable` protocol, or a pipe-separated string. 
 
@@ -84,9 +83,7 @@ timestamp|angle^15.2|distance^4.3
 - `|` separates different values  
 - `^` separates keys and values (since `:` is used in timestamps)  
 
-### 📡 TCP Server (`Socket.swift`)
-
----
+## 📡 TCP Server (`Socket.swift`)
 
 - The server listens for requests from the robot.  
 - When `"VISION"` is received, it returns the latest detected angle & distance data.  
@@ -99,7 +96,7 @@ Functions of note:
   
 To shutdown the server at any time, send the string `"SHUTDOWN"`. Please be advised that you will have to currently **restart the app** to restart the server.
 
-### Project Checklist
+## Project Checklist
 
 - ✅ TCP Socket Initialized
 - ✅ TCP Socket communicates random JSON data to robot 
@@ -112,13 +109,11 @@ To shutdown the server at any time, send the string `"SHUTDOWN"`. Please be advi
 - ✅ Calculating height from data
 - ✅ Sending correct data over in a JSON format to robot
 
----
 
 ## 🔗 References & Related Work  
 - [IBM BlueSocket](https://www.github.com/IBM-Swift/BlueSocket)  
 - [Apple Vision Framework](https://developer.apple.com/documentation/vision/vndetectrectanglesrequest)  
 
----
 
 ## 📌 Contributors  
 👨‍💻 **Connor Espenshade** – Lead Developer ([LinkedIn](https://linkedin.com/in/cespenshade))  
