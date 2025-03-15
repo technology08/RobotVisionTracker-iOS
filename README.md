@@ -8,6 +8,18 @@ A **real-time computer vision tracking system** using an iPhone and Apple's Visi
 - ✅ **Fast TCP Communication** – Uses IBM BlueSocket API for raw TCP socket JSON data transmission, implementing platform in environments with or without WiFi.  
 - ✅ **Precise Angle & Distance Calculation** – Computes target angle relative to the robot's camera.
 
+
+## Example
+Here is a snapshot and demo of the project in action. It successfully identifies the target, and reports on-screen the angle offset, aspect ratio, and location in frame of the detected target. This information is passed onto the external device through the TCP server. Notice in the demo that other shapes, such as the ceiling lights, may pass through the color filter, but are not recognized by the vision model. The video feed is in black and white, where white represents what passes the color filter, and black is everything else.
+
+<table>
+  <tr>
+    <td valign="top"><img src="demo-pic.png" alt="Left Image" width="100%"></td>
+    <td><img src="demo.gif" alt="Right Image" width="60%"></td>
+  </tr>
+</table>
+
+
 ## Technologies & Skills
 - **Swift** User interface, integration of APIs 
 - **CoreImage** Color filter shader
@@ -43,6 +55,7 @@ A brief summary: IBM Blue Socket provides the framework for the iPhone to intera
 Apple's built-in Vision framework (iOS 11.0+) provides rectangle detection and tracking algorithms to be used with a green light on the field. Using the field of view and the size of the frame, the goal is to calculate the difference of the target to the center of the frame in degrees.
 
 There are three filters in this project. The first is a  color filter, using a `CIColorKernel`. A minimum and maximum RGB value is specified, and CoreImage filters the image as black and white. The second filter will be an aspect ratio. The third filter will look at the negative space between the two detected rectangles to ensure they are not tiny points.
+
 
 ## 📷 Vision Processing (`Rectangle.swift`)
 
@@ -96,9 +109,11 @@ To shutdown the server at any time, send the string `"SHUTDOWN"`. Please be advi
 - ✅ Calculating height from data
 - ✅ Sending correct data over in a JSON format to robot
 
+
 ## 🔗 References & Related Work  
 - [IBM BlueSocket](https://www.github.com/IBM-Swift/BlueSocket)  
 - [Apple Vision Framework](https://developer.apple.com/documentation/vision/vndetectrectanglesrequest)  
+
 
 ## 📌 Contributors  
 👨‍💻 **Connor Espenshade** – Lead Developer ([LinkedIn](https://linkedin.com/in/cespenshade))  
