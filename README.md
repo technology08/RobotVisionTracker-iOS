@@ -8,6 +8,16 @@ A **real-time computer vision tracking system** using an iPhone and Apple's Visi
 - ✅ **Fast TCP Communication** – Uses IBM BlueSocket API for raw TCP socket JSON data transmission, implementing platform in environments with or without WiFi.  
 - ✅ **Precise Angle & Distance Calculation** – Computes target angle relative to the robot's camera.
 
+## Example
+Here is a snapshot and demo of the project in action. It successfully identifies the target, and reports on-screen the angle offset, aspect ratio, and location in frame of the detected target. This information is passed onto the external device through the TCP server. Notice in the demo that other shapes, such as the ceiling lights, may pass through the color filter, but are not recognized by the vision model. The video feed is in black and white, where white represents what passes the color filter, and black is everything else.
+
+<table>
+  <tr>
+    <td valign="top"><img src="demo-pic.png" alt="Left Image" width="100%"></td>
+    <td><img src="demo.gif" alt="Right Image" width="60%"></td>
+  </tr>
+</table>
+
 ## Technologies & Skills
 - **Swift** User interface, integration of APIs 
 - **CoreImage** Color filter shader
